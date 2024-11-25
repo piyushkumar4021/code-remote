@@ -1,4 +1,9 @@
-export default function SearchForm({ query, setQuery }) {
+type TSearchFormProps = {
+  query: string;
+  setQuery: (nextQuery: string) => void;
+};
+
+export default function SearchForm({ query, setQuery }: TSearchFormProps) {
   return (
     <form action='#' onSubmit={(e) => e.preventDefault()} className='search'>
       <button type='submit'>

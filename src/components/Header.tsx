@@ -1,16 +1,16 @@
+import { ReactNode } from 'react';
 import BookmarksButton from './BookmarksButton';
 import Logo from './Logo';
-import SearchForm from './SearchForm';
 
-export default function Header({ query, setQuery }) {
+export default function Header({ children }: { children: ReactNode }) {
+  return <header className='header'>{children}</header>;
+}
+
+export function HeaderTop() {
   return (
-    <header className='header'>
-      <div className='header__top'>
-        <Logo />
-        <BookmarksButton />
-      </div>
-
-      <SearchForm query={query} setQuery={setQuery} />
-    </header>
+    <div className='header__top'>
+      <Logo />
+      <BookmarksButton />
+    </div>
   );
 }
