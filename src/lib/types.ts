@@ -4,6 +4,7 @@ export type TJobItem = {
   badgeLetters: string;
   title: string;
   daysAgo: number;
+  relevanceScore: number;
 };
 
 export type TJobItemExpanded = TJobItem & {
@@ -15,4 +16,8 @@ export type TJobItemExpanded = TJobItem & {
   salary: string;
   coverImgURL: string;
   companyURL: string;
+  relevanceScore: number;
 };
+
+export type TSortBy = 'relevant' | 'recent';
+export type TDirection = 'next' | 'previous';

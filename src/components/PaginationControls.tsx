@@ -1,20 +1,22 @@
-type TPaginationControls = {
+import { TDirection } from '../lib/types';
+
+type TPaginationControlsProps = {
   currentPage: number;
   totalNumberOfPages: number;
-  onPageChange: (direction: 'next' | 'previous') => void;
+  onPageChange: (direction: TDirection) => void;
 };
 
-type TPaginationButtons = {
+type TPaginationButtonsProps = {
   currentPage: number;
-  type: 'next' | 'previous';
-  handleClick: (direction: 'next' | 'previous') => void;
+  type: TDirection;
+  handleClick: (direction: TDirection) => void;
 };
 
 export default function PaginationControls({
   currentPage,
   totalNumberOfPages,
   onPageChange,
-}: TPaginationControls) {
+}: TPaginationControlsProps) {
   return (
     <section className='pagination'>
       {currentPage > 1 && (
@@ -39,7 +41,7 @@ export const PaginationButtons = ({
   currentPage,
   type,
   handleClick,
-}: TPaginationButtons) => {
+}: TPaginationButtonsProps) => {
   return (
     <button
       onClick={() => handleClick(type)}
