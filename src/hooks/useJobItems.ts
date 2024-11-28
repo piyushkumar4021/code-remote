@@ -1,29 +1,32 @@
-import { useState, useEffect } from 'react';
 import { TJobItem } from '../lib/types';
 import { BASE_API_URL } from '../lib/constants';
+import { useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+
+const getJobItems = async (query: string): Promise<TJobItem[]> => {
+  const resp = await fetch(`${BASE_API_URL}?search=${query}`);
+
+  if (!resp.ok) {
+    const error = await resp.json();
+    throw new Error(error.description);
+  }
+
+  const data = await resp.json();
+  return data.jobItems;
+};
 
 export default function useJobItem(query: string) {
-  const [jobItems, setJobItems] = useState<TJobItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { data, isInitialLoading } = useQuery({
+    queryKey: ['job-items', query],
+    queryFn: () => getJobItems(query),
+    refetchOnWindowFocus: false,
+    enabled: Boolean(query),
+    retry: false,
+    staleTime: 1000 * 60 * 60,
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
 
-  const totalResults = jobItems.length;
-  const jobItemsSliced = jobItems.slice(0, 7);
-
-  useEffect(() => {
-    async function getJobItems() {
-      if (!query) return;
-
-      setIsLoading(true);
-
-      const resp = await fetch(`${BASE_API_URL}?search=${query}`);
-      const data = await resp.json();
-
-      setJobItems(data.jobItems);
-      setIsLoading(false);
-    }
-
-    getJobItems();
-  }, [query]);
-
-  return { jobItemsSliced, isLoading, totalResults } as const;
+  return { jobItems: data || [], isLoading: isInitialLoading } as const;
 }

@@ -13,12 +13,15 @@ import useDebounce from '../hooks/useDebounce';
 import ResultsCount from './ResultsCount';
 import Sorting from './SortingControls';
 import { QUERY_DELAY } from '../lib/constants';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, QUERY_DELAY);
-  const { jobItemsSliced, isLoading, totalResults } =
-    useJobItems(debouncedQuery);
+  const { jobItems, isLoading } = useJobItems(debouncedQuery);
+
+  const totalResults = jobItems.length;
+  const jobItemsSliced = jobItems.slice(0, 7);
 
   return (
     <>
@@ -42,6 +45,8 @@ function App() {
       </Container>
 
       <Footer />
+
+      <Toaster position='top-right' />
     </>
   );
 }
