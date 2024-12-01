@@ -16,7 +16,6 @@ export type TJobItemExpanded = TJobItem & {
   salary: string;
   coverImgURL: string;
   companyURL: string;
-  relevanceScore: number;
 };
 
 export type TSortBy = 'relevant' | 'recent';

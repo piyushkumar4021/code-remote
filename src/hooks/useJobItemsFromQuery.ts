@@ -15,7 +15,7 @@ const getJobItems = async (query: string): Promise<TJobItem[]> => {
   return data.jobItems;
 };
 
-export default function useJobItem(query: string) {
+export default function useJobItemsFromQuery(query: string) {
   const { data, isInitialLoading } = useQuery({
     queryKey: ['job-items', query],
     queryFn: () => getJobItems(query),

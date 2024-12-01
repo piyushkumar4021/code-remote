@@ -2,7 +2,7 @@ import { BASE_API_URL } from '../lib/constants';
 import { TJobItemExpanded } from '../lib/types';
 import { useQuery } from '@tanstack/react-query';
 
-const getJobItem = async (id: number): Promise<TJobItemExpanded> => {
+export const getJobItem = async (id: number): Promise<TJobItemExpanded> => {
   const resp = await fetch(`${BASE_API_URL}/${id}`);
   const data = await resp.json();
   return data.jobItem;

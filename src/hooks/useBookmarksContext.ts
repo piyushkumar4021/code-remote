@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { BookmarksContext } from './../contexts/BookmarksContextProvider';
+import { BookmarksContext } from '../contexts/BookmarksContextProvider';
 
 function useBookmarksContext() {
   const context = useContext(BookmarksContext);

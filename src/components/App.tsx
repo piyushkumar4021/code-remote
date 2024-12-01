@@ -8,7 +8,7 @@ import Sidebar, { SidebarTop } from './Sidebar';
 import JobList from './JobList';
 import PaginationControls from './PaginationControls';
 import SearchForm from './SearchForm';
-import useJobItems from '../hooks/useJobItems';
+import useJobItemsFromQuery from '../hooks/useJobItemsFromQuery';
 import useDebounce from '../hooks/useDebounce';
 import ResultsCount from './ResultsCount';
 import SortingControls from './SortingControls';
@@ -19,7 +19,7 @@ import { TDirection, TSortBy } from '../lib/types';
 function App() {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, QUERY_DELAY);
-  const { jobItems, isLoading } = useJobItems(debouncedQuery);
+  const { jobItems, isLoading } = useJobItemsFromQuery(debouncedQuery);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortBy, setSortBy] = useState<TSortBy>('relevant');
 
@@ -43,6 +43,7 @@ function App() {
       setCurrentPage((prev) => prev + 1);
     }
   };
+
   const handleSortByChange = (newSortBy: TSortBy) => {
     setCurrentPage(1);
     setSortBy(newSortBy);
